@@ -30,7 +30,7 @@ public class ContactUs extends Fragment {
     HashMap<String, List<String>> listDataChild;
     private final static String yelpUri = "https://www.yelp.com/biz/blitz-boba-las-vegas-3";
     private final static String facebookUri = "https://facebook.com/blitzboba";
-    private final static String websiteUri = "https://b litzboba.com";
+    private final static String websiteUri = "https://blitzboba.com";
     private final static String instagramUri = "https://instagram.com/blitzboba";
     private final static String twitterUri = "https://twitter.com/blitzboba";
 
