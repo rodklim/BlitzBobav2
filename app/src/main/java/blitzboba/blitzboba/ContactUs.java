@@ -32,7 +32,7 @@ public class ContactUs extends Fragment {
     private final static String facebookUri = "https://facebook.com/blitzboba";
     private final static String websiteUri = "https://blitzboba.com";
     private final static String instagramUri = "https://instagram.com/blitzboba";
-    private final static String twitterUri = "https://twitter.com/blitzboba";
+    private final static String twitterUri = "https:// twitter.com/blitzboba";
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
