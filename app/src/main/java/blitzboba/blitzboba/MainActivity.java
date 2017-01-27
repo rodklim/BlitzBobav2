@@ -6,10 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.SlidingTabLayout;
 import com.ViewPagerAdapter;
-
 import blitzboba.blitzbobav2.R;
 
 public class MainActivity extends AppCompatActivity {
