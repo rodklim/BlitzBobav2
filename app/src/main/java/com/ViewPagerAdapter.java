@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.widget.Toast;
 
-import blitzboba.blitzboba.AboutUs;
 import blitzboba.blitzboba.ContactUs;
 import blitzboba.blitzboba.Events;
 import blitzboba.blitzboba.Menu;
@@ -39,7 +38,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         switch(position) {
             case 0:
-                fragment = new AboutUs();
+                fragment = new Events();
                 return fragment;
             case 1:
                 fragment = new Menu();

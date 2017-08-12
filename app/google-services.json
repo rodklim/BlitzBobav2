@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "276619144975",
+    "firebase_url": "https://blitz-boba.firebaseio.com",
+    "project_id": "blitz-boba",
+    "storage_bucket": "blitz-boba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276619144975:android:b478d172d1e31e4d",
+        "android_client_info": {
+          "package_name": "blitzboba.blitzbobav2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276619144975-i3uvu44j8e6rsutudkl1ujil0s8ochee.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP7fv_wG0d8SGxAzSJhxgJ8QSZRBn5Iro"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
