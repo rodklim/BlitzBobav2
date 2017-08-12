@@ -1,8 +1,6 @@
 package blitzboba.blitzboba;
 
 
-import android.content.res.AssetManager;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -14,19 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ExpandableListView;
-
-import com.ExpandableListAdapter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import blitzboba.blitzbobav2.R;
 
@@ -34,20 +23,11 @@ import blitzboba.blitzbobav2.R;
  * Created by Rodrigo on 10/18/2016.
  */
 public class Menu extends Fragment implements BobaContract.View {
-    ExpandableListView expandableListView;
-    ExpandableListAdapter expandableListAdapter;
-    List<String> listDataHeader;
-    HashMap<String, List<String>> listDataChild;
 
-    private DatabaseReference mFirebaseDatabaseReference, childRef;
-    private FirebaseRecyclerAdapter<BobaDrinks,BobaDrinksAdapter.BobaDrinksViewHolder> bobaDrinksFirebaseAdapter;
+
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
-    private Button filterButton;
     BobaDrinksAdapter adapter;
-    private final CharSequence[] items = {"All","Vegan","Specialty","Smoothies"};
-    private final ArrayList selectedItems = new ArrayList();
-    private ArrayList<BobaDrinks> bobaDrinksArrayList = new ArrayList<>();
     private CheckBox checkBox1;
     private CheckBox checkBox2;
     private CheckBox checkBox3;
@@ -55,9 +35,6 @@ public class Menu extends Fragment implements BobaContract.View {
     private boolean isOrderingEnabled = false;
     List<BobaDrinks> bobaDrinksList;
     List<BobaDrinks> orderedBobaDrinks = new ArrayList<>();
-    List<BobaDrinks> filteredDrinksList = new ArrayList<>();
-    List<BobaDrinks> specialtyBobaDrinksList;
-    List<BobaDrinks> smoothieBobaDrinksList;
 
 
     @Override
