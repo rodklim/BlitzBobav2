@@ -115,7 +115,6 @@ public class Menu extends Fragment implements BobaContract.View {
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setAdapter(adapter);
 
-        Log.d("Wooo","woooo");
     }
 
     @Override
