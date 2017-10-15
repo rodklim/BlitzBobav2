@@ -1,20 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ColorPrimary">
+    android:background="@color/colorPrimary">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true">
+    
+    
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@id/viewPager"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Blitz Boba brings your favorite boba drinks on wheels! We've simplified our menu where you understand your drink - just with a  modern twist! \n\n
 
-    <ListView
+We're more than just a truck! Blitz Boba was born from the idea of bringing communities together. Come hang out with us! We're all about good vibes with good people. \n\n
+
+Check out our calendar and find us rolling thru the streets of Las Vegas!"
+        android:textAlignment="center"
+        android:textColor="#434343"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/events_title_textView"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/textView"
-        android:id="@+id/eventsListView"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:layout_below="@id/textView"
+        android:textColor="@color/colorPrimaryDark"
+        tools:text="Events"
+        tools:textSize="20sp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/events_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/events_title_textView"
+        android:layout_marginStart="60dp"
+        android:layout_marginLeft="60dp" />
+
+    <TextView
+        android:layout_below="@id/events_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:text="Contact Us"/>
+
+
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

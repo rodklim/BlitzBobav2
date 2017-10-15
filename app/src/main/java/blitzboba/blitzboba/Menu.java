@@ -1,7 +1,9 @@
 package blitzboba.blitzboba;
 
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import blitzboba.blitzbobav2.R;
@@ -35,6 +39,9 @@ public class Menu extends Fragment implements BobaContract.View {
     private boolean isOrderingEnabled = false;
     List<BobaDrinks> bobaDrinksList;
     List<BobaDrinks> orderedBobaDrinks = new ArrayList<>();
+    private static final String DRINKS = "Drinks" ;
+    private int secretCounter = 0;
+    private long mLastClickTime = 0;
 
 
     @Override
@@ -45,25 +52,48 @@ public class Menu extends Fragment implements BobaContract.View {
         mLinearLayoutManager.setStackFromEnd(false);
 
         final MenuRequest menuRequest = new MenuRequest(this);
-        menuRequest.loadDrinks("Drinks");
+        menuRequest.loadDrinks(DRINKS);
+        //TODO consider dropdown over checkboxes
         checkBox1 = (CheckBox) v.findViewById(R.id.checkBox1);
         checkBox2 = (CheckBox) v.findViewById(R.id.checkBox2);
         checkBox3 = (CheckBox) v.findViewById(R.id.checkBox3);
         checkBox4 = (CheckBox) v.findViewById(R.id.checkBox4);
         setCheckBoxRules(menuRequest);
         final FloatingActionButton fab = (FloatingActionButton) v.findViewById(R.id.floatingActionButton);
+        if(checkTime()) {
+            fab.setVisibility(View.GONE);
+        } else {
+            fab.setVisibility(View.VISIBLE);
+        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000){
+                    secretCounter+=1;
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
+                if(secretCounter == 7) {
+                    secretCounter = 0;
+                }
                 if(isOrderingEnabled) {
                     isOrderingEnabled = false;
                     fab.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));
                 } else {
                     isOrderingEnabled = true;
                     fab.setImageDrawable(getResources().getDrawable(R.drawable.blitzbobalightning));
+                    Intent i = new Intent(getActivity(), BlitzOrderingWebView.class);
+                    startActivity(i);
                     Snackbar.make(view, "Click on items you want to order!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
+            }
+        });
+        fab.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                secretCounter+=1;
+                return false;
             }
         });
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -209,5 +239,13 @@ public class Menu extends Fragment implements BobaContract.View {
                 }
             }
         });
+    }
+
+    private boolean checkTime() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+
+        int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        return dayOfWeek == Calendar.FRIDAY || dayOfWeek == Calendar.SATURDAY || dayOfWeek == Calendar.SUNDAY;
     }
 }

@@ -23,7 +23,7 @@ public class AboutUs extends Fragment {
         View v =inflater.inflate(R.layout.about_us,container,false);
         textView = (TextView) v.findViewById(R.id.textView);
         textView.setText(getString(R.string.about_us));
-        textView.setTextColor(getResources().getColor(R.color.ColorPrimaryDark));
+        textView.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
 
         return v;
     }
