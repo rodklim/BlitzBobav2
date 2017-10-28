@@ -33,6 +33,7 @@ public class OrderFragment extends Fragment {
         webView = (WebView) v.findViewById(R.id.webView);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+        webView.setHorizontalScrollBarEnabled(false);
 //        progDialog = ProgressDialog.show(getActivity(), "Loading", "Please wait...", true);
 //        progDialog.setCancelable(false);
 

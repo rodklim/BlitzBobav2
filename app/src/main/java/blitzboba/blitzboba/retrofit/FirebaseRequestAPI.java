@@ -6,6 +6,7 @@ import com.google.gson.GsonBuilder;
 import java.util.List;
 
 import blitzboba.blitzboba.BobaDrinks;
+import blitzboba.blitzboba.CalendarDataModel;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -27,6 +28,8 @@ public interface FirebaseRequestAPI {
     @GET("{Drinks}.json")
     Call<List<BobaDrinks>> repoContributors(
             @Path("Drinks") String specialty);
+    @GET("{Calendar}.json")
+            Call<List<CalendarDataModel>> getCalendar(@Path("Calendar") String calendar);
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(DATABASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))

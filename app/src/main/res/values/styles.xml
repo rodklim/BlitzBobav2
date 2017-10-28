@@ -6,6 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/tabsScrollColor</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowExitTransition">@transition/card_transition</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -16,5 +19,10 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="toolbarColor"  parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        ....
+        <item name="colorControlNormal">#FFFFFF</item>
+    </style>
 
 </resources>

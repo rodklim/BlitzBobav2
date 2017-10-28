@@ -1,6 +1,10 @@
 package blitzboba.blitzboba;
 
+import android.util.Log;
+
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import blitzboba.blitzboba.retrofit.FirebaseRequestAPI;
@@ -12,10 +16,10 @@ import retrofit2.Response;
  * Created by Rodrigo on 4/4/2017.
  */
 
-public class MenuRequest implements BobaContract.Actions {
+public class DataRequest implements BobaContract.Actions, CalendarContract.Actions {
 
     private BobaContract.View bobaView;
-
+    private CalendarContract.View calendarView;
     private List<BobaDrinks> nonSoldOutBobaDrinks = new ArrayList<>();
     private List<BobaDrinks> soldOutBobaDrinks = new ArrayList<>();
     private List<BobaDrinks> specialtyBobaDrinks = new ArrayList<>();
@@ -24,15 +28,21 @@ public class MenuRequest implements BobaContract.Actions {
     private List<BobaDrinks> veganSpecialtyBobaDrinks = new ArrayList<>();
     private List<BobaDrinks> veganSmoothieBobaDrinks = new ArrayList<>();
     private List<BobaDrinks> shownBobaDrinks = new ArrayList<>();
+    private List<CalendarDataModel> calendarDataModelList = new ArrayList<>();
 
-    public MenuRequest(BobaContract.View bobaView) {
+    public DataRequest(BobaContract.View bobaView) {
         this.bobaView = bobaView;
     }
+
+    public DataRequest(CalendarContract.View calendarView) {
+        this.calendarView = calendarView;
+    }
+
 
     @Override
     public BobaDrinks loadDrinks(String url) {
         FirebaseRequestAPI firebaseRequestAPI = FirebaseRequestAPI.retrofit.create(FirebaseRequestAPI.class);
-        Call<List<BobaDrinks>> call = firebaseRequestAPI.repoContributors("Drinks");
+        Call<List<BobaDrinks>> call = firebaseRequestAPI.repoContributors(url);
         call.enqueue(new Callback<List<BobaDrinks>>() {
             @Override
             public void onResponse(Call<List<BobaDrinks>> call, Response<List<BobaDrinks>> response) {
@@ -43,9 +53,29 @@ public class MenuRequest implements BobaContract.Actions {
 
             @Override
             public void onFailure(Call<List<BobaDrinks>> call, Throwable t) {
+                //TODO handle failures
             }
         });
 
+        return null;
+    }
+
+    @Override
+    public CalendarDataModel loadCalendar(String url) {
+        FirebaseRequestAPI firebaseRequestAPI = FirebaseRequestAPI.retrofit.create(FirebaseRequestAPI.class);
+        Call<List<CalendarDataModel>> call = firebaseRequestAPI.getCalendar(url);
+        call.enqueue(new Callback<List<CalendarDataModel>>() {
+            @Override
+            public void onResponse(Call<List<CalendarDataModel>> call, Response<List<CalendarDataModel>> response) {
+               filterCalendarEvents(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<CalendarDataModel>> call, Throwable t) {
+                //TODO handle failures
+                Log.d("rlim", "):");
+            }
+        });
         return null;
     }
 
@@ -130,6 +160,30 @@ public class MenuRequest implements BobaContract.Actions {
     private void changeShownDrinks(List<BobaDrinks> bobaDrinksList) {
         shownBobaDrinks.clear();
         shownBobaDrinks.addAll(bobaDrinksList);
+    }
+
+    private void filterCalendarEvents(List<CalendarDataModel> calendarModelList) {
+        Calendar c = Calendar.getInstance();
+        Date today = c.getTime();
+        long currentTimeinMilliseconds = System.currentTimeMillis();
+        if(calendarModelList.size() <= 5) {
+            calendarView.showCalendarEvents(calendarModelList);
+        } else {
+            int eventCount = 0;
+            for(int i = 0; i < calendarModelList.size(); i++){
+                Date date = new Date(calendarModelList.get(i).getDate());
+                if(date.before(today)) {
+                    return;
+                } else {
+                    if(eventCount < 5) {
+                        calendarDataModelList.add(calendarModelList.get(i));
+                    }
+                    eventCount++;
+                }
+            }
+            calendarView.showCalendarEvents(calendarDataModelList);
+        }
+
     }
 
 }

@@ -39,7 +39,7 @@ public class Menu extends Fragment implements BobaContract.View {
     private boolean isOrderingEnabled = false;
     List<BobaDrinks> bobaDrinksList;
     List<BobaDrinks> orderedBobaDrinks = new ArrayList<>();
-    private static final String DRINKS = "Drinks" ;
+    private static final String DRINKS = "Drinks";
     private int secretCounter = 0;
     private long mLastClickTime = 0;
 
@@ -51,7 +51,7 @@ public class Menu extends Fragment implements BobaContract.View {
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setStackFromEnd(false);
 
-        final MenuRequest menuRequest = new MenuRequest(this);
+        final DataRequest menuRequest = new DataRequest(this);
         menuRequest.loadDrinks(DRINKS);
         //TODO consider dropdown over checkboxes
         checkBox1 = (CheckBox) v.findViewById(R.id.checkBox1);
@@ -129,7 +129,7 @@ public class Menu extends Fragment implements BobaContract.View {
         adapter.setFilter(bobaDrinksList);
     }
 
-    private void setCheckBoxRules(final MenuRequest menuRequest) {
+    private void setCheckBoxRules(final DataRequest menuRequest) {
         checkBox1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

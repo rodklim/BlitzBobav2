@@ -5,13 +5,6 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.widget.Toast;
-
-import blitzboba.blitzboba.BobaContract;
-import blitzboba.blitzboba.ContactUs;
-import blitzboba.blitzboba.Events;
-import blitzboba.blitzboba.Menu;
-import blitzboba.blitzboba.OrderFragment;
 
 /**
  * Created by Rodrigo on 10/18/2016.
@@ -40,7 +33,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         switch(position) {
             case 0:
-                fragment = new Events();
+                fragment = new HomeFragment();
                 return fragment;
             case 1:
                 fragment = new Menu();

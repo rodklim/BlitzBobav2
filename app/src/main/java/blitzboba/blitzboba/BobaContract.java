@@ -17,8 +17,4 @@ public class BobaContract {
     public interface Actions {
         BobaDrinks loadDrinks(String url);
     }
-
-    public interface OrderActions {
-        void onWebpageLoaded();
-    }
 }
