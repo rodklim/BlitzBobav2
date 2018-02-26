@@ -53,8 +53,8 @@ public class CalendarDataModel implements Parcelable {
         date = in.readLong();
         duration = in.readLong();
         isOnlineOrderingAvail = in.readInt() != 0;
-        locationSubtitle = in.readString();
         locationTitle = in.readString();
+        locationSubtitle = in.readString();
     }
 
     public String getAddress() {
@@ -114,7 +114,7 @@ public class CalendarDataModel implements Parcelable {
     }
 
     public String getStartAndEndTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a");
         String startTime = sdf.format(new Date(date));
         String endTime = sdf.format(new Date(date + duration));
         return startTime + " - " + endTime;

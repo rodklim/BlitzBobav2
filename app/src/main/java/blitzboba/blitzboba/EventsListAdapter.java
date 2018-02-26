@@ -36,6 +36,7 @@ public class EventsListAdapter extends RecyclerView.Adapter<EventsListAdapter.Ev
     public OnItemClickListener mItemClickListener;
     private Integer [] images = {R.drawable.bettyanddrink, R.drawable.bettythetruck2,
             R.drawable.bettythetruck, R.drawable.bettyandcrewdance2, R.drawable.mattandbetty};
+    public static final String FONT_NAME = "fonts/ARCADE_N.TTF";
 
     public EventsListAdapter(Context context, List<CalendarDataModel> calendarDataModelList) {
         this.context = context;
@@ -59,11 +60,11 @@ public class EventsListAdapter extends RecyclerView.Adapter<EventsListAdapter.Ev
         holder.eventTime.setText(calendarDataModel.getStartAndEndTime());
         holder.eventLocationSubtitle.setText(calendarDataModel.getLocationSubtitle());
         holder.eventDateAndName.setTextSize(15);
-        holder.eventDateAndName.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/ARCADE_N.TTF"));
+        holder.eventDateAndName.setTypeface(Typeface.createFromAsset(context.getAssets(), FONT_NAME));
         holder.eventTime.setTextSize(15);
-        holder.eventTime.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/ARCADE_N.TTF"));
+        holder.eventTime.setTypeface(Typeface.createFromAsset(context.getAssets(), FONT_NAME));
         holder.eventLocationSubtitle.setTextSize(15);
-        holder.eventLocationSubtitle.setTypeface(Typeface.createFromAsset(context.getAssets(), "fonts/ARCADE_N.TTF"));
+        holder.eventLocationSubtitle.setTypeface(Typeface.createFromAsset(context.getAssets(), FONT_NAME));
 
         Glide.with(context).load(images[position]).into(holder.eventImageView);
 //        holder.eventImageView.setImageResource(images[position]);

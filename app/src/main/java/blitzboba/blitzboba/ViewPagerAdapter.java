@@ -36,7 +36,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
                 fragment = new HomeFragment();
                 return fragment;
             case 1:
-                fragment = new Menu();
+                fragment = new MenuFragment();
                 return fragment;
             case 2:
                 fragment = new OrderFragment();

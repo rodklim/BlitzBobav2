@@ -10,7 +10,10 @@ import blitzboba.blitzboba.CalendarDataModel;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -20,18 +23,12 @@ import retrofit2.http.Path;
 public interface FirebaseRequestAPI {
 
     String DATABASE_URL = "https://blitz-boba.firebaseio.com/";
-
-    Gson gson = new GsonBuilder()
-            .setLenient()
-            .create();
-
     @GET("{Drinks}.json")
     Call<List<BobaDrinks>> repoContributors(
             @Path("Drinks") String specialty);
     @GET("{Calendar}.json")
             Call<List<CalendarDataModel>> getCalendar(@Path("Calendar") String calendar);
-    Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl(DATABASE_URL)
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build();
+
+    @PUT("/Calendar/{eventNumber}.json")
+    Call<CalendarDataModel> setEventData(@Path("eventNumber") String s1, @Body CalendarDataModel calendarDataModel);
 }

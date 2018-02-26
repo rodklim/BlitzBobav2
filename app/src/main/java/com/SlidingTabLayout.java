@@ -284,13 +284,9 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private class TabClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Toast t = Toast.makeText(getContext(), "Click on each category to find out more!", Toast.LENGTH_SHORT);
             for (int i = 0; i < mTabStrip.getChildCount(); i++) {
                 if (v == mTabStrip.getChildAt(i)) {
                     mViewPager.setCurrentItem(i);
-                    if(i == 1) {
-                        t.show();
-                    }
                     return;
                 }
             }

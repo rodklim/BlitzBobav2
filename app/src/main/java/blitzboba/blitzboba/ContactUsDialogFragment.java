@@ -29,6 +29,7 @@ import blitzboba.blitzbobav2.R;
 public class ContactUsDialogFragment extends DialogFragment {
 
     public final static String FORM_DIALOG_FRAGMENT_TAG = "FORM_DIALOG_FRAGMENT_TAG";
+    public static final String FONT_NAME = "fonts/ARCADE_N.TTF";
     TextView contactUsTitle;
     TextView nameTextView;
     TextView emailTextView;
@@ -61,12 +62,12 @@ public class ContactUsDialogFragment extends DialogFragment {
         submitButton = (Button) view.findViewById(R.id.submit_button);
         cancelButton = (Button) view.findViewById(R.id.cancel_button);
         submitButton.setEnabled(false);
-        submitButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/ARCADE_N.TTF"));
-        cancelButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/ARCADE_N.TTF"));
-        contactUsTitle.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/ARCADE_N.TTF"));
-        nameTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/ARCADE_N.TTF"));
-        emailTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/ARCADE_N.TTF"));
-        messageTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/ARCADE_N.TTF"));
+        submitButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), FONT_NAME));
+        cancelButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), FONT_NAME));
+        contactUsTitle.setTypeface(Typeface.createFromAsset(getContext().getAssets(), FONT_NAME));
+        nameTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), FONT_NAME));
+        emailTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), FONT_NAME));
+        messageTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), FONT_NAME));
         nameEditText.addTextChangedListener(textWatcher);
         emailEditText.addTextChangedListener(textWatcher);
         messageEditText.addTextChangedListener(textWatcher);

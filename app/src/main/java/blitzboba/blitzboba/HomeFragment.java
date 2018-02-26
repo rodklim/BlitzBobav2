@@ -29,6 +29,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import blitzboba.blitzbobav2.R;
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
 
 /**
  * Created by Rodrigo on 10/31/2016.
@@ -43,10 +45,16 @@ public class HomeFragment extends Fragment implements CalendarContract.View {
     EventsListAdapter eventsListAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     public static final String CALENDAR = "Calendar";
+    public static final String FONT_NAME = "fonts/ARCADE_N.TTF";
 
     //TODO finish Contact Us part of page
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        int cacheSize = 10 * 1024 * 1024;
+        Cache cache = new Cache(getContext().getCacheDir(), cacheSize);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .cache(cache)
+                .build();
         View v =inflater.inflate(R.layout.home_fragment,container,false);
         recyclerView = (RecyclerView) v.findViewById(R.id.events_recyclerView);
         textView = (TextView) v.findViewById(R.id.textView);
@@ -55,19 +63,20 @@ public class HomeFragment extends Fragment implements CalendarContract.View {
         viewPager = (ViewPager) v.findViewById(R.id.viewPager);
         contactUsButton = (Button) v.findViewById(R.id.contact_us_button);
         final DataRequest dataRequest = new DataRequest(this);
-        dataRequest.loadCalendar(CALENDAR);
+//        dataRequest.getCalendarList();
+        dataRequest.loadCalendar(CALENDAR, okHttpClient);
         mLinearLayoutManager = new LinearLayoutManager(getActivity());
         mLinearLayoutManager.setStackFromEnd(false);
         textView.setTypeface(Typeface.DEFAULT);
-        eventsTextView.setText("Events");
+        eventsTextView.setText(getString(R.string.events));
         eventsTextView.setTextSize(18);
         eventsTextView.setTextColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
-        eventsTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/ARCADE_N.TTF"));
-        aboutTitleTextView.setText("About");
+        eventsTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), FONT_NAME));
+        aboutTitleTextView.setText(getString(R.string.About));
         aboutTitleTextView.setTextSize(18);
         aboutTitleTextView.setTextColor(getContext().getResources().getColor(R.color.colorPrimaryDark));
-        aboutTitleTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/ARCADE_N.TTF"));
-        contactUsButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/ARCADE_N.TTF"));
+        aboutTitleTextView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), FONT_NAME));
+        contactUsButton.setTypeface(Typeface.createFromAsset(getContext().getAssets(), FONT_NAME));
         contactUsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,10 +96,8 @@ public class HomeFragment extends Fragment implements CalendarContract.View {
         eventsListAdapter.setOnItemClickListener(new EventsListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(ImageView view, int imageID, int position) {
-                Intent intent = new Intent(getActivity(), EventDetailsActivity.class);
-                intent.putExtra("EVENT_TRANSITION_NAME", ViewCompat.getTransitionName(view));
-                intent.putExtra("EVENT_IMAGE", imageID);
-                intent.putExtra("EVENT_LIST", calendarDataModelList.get(position));
+                Intent intent = EventDetailsActivity.createEventDetailsActivityIntent(getActivity(),
+                        ViewCompat.getTransitionName(view),imageID,calendarDataModelList.get(position));
                 ActivityOptionsCompat options = ActivityOptionsCompat.
                         makeSceneTransitionAnimation(getActivity(), view, ViewCompat.getTransitionName(view));
                 startActivity(intent, options.toBundle());
@@ -98,6 +105,7 @@ public class HomeFragment extends Fragment implements CalendarContract.View {
         });
         recyclerView.setLayoutManager(mLinearLayoutManager);
         recyclerView.setAdapter(eventsListAdapter);
+        recyclerView.setNestedScrollingEnabled(false);
     }
 
     public class MyTimerTask extends TimerTask {
@@ -120,18 +128,6 @@ public class HomeFragment extends Fragment implements CalendarContract.View {
                 });
             }
         }
-    }
-
-    public ArrayList<String> getEventsList() {
-        //TODO somehow host events on webpage
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("10/30\nUNLV\n11 AM - 3 PM\nRLL");
-        arrayList.add("10/31\nUNLV\n11 AM - 3 PM\nRLL");
-        arrayList.add("11/1\nUNLV\n11 AM - 3 PM\nRLL");
-        arrayList.add("11/2\nUNLV\n11 AM - 3 PM\nRLL");
-        arrayList.add("11/3\nFirst Friday\n7 PM - 11 PM\nLiquor World");
-
-        return arrayList;
     }
 
     private void showDialogFrag() {

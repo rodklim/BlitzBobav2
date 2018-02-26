@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bobaDrinks"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:gravity="center"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="25dp"
+    android:layout_marginBottom="25dp">
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
-        android:layout_gravity="center"/>
+        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:gravity="center"
+        tools:textColor="#000000"
+        tools:text="Hiiiiiiiiiiiiiiii"/>
 
     <ImageView
         android:id="@+id/imageView"
@@ -21,8 +29,5 @@
         android:layout_weight="1"
         app:srcCompat="@drawable/blitzbobavegan" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="50dp" />
 
 </LinearLayout>

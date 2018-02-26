@@ -1,11 +1,15 @@
 package blitzboba.blitzboba;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +20,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
@@ -39,7 +44,10 @@ import blitzboba.blitzbobav2.R;
 
 public class EventDetailsActivity extends AppCompatActivity implements OnMapReadyCallback{
 
-    public static final String EXTRA_CONTACT = "EVENT_DETAILS";
+    public static final String EVENT_TRANSITION_NAME = "EVENT_TRANSITION_NAME";
+    public static final String EVENT_IMAGE = "EVENT_IMAGE";
+    public static final String EVENT_LIST = "EVENT_LIST";
+    public static final String FONT_NAME = "fonts/ARCADE_N.TTF";
     TextView eventDateAndName;
     TextView eventTime;
     TextView eventLocationSubtitle;
@@ -57,13 +65,13 @@ public class EventDetailsActivity extends AppCompatActivity implements OnMapRead
         eventLocationSubtitle = (TextView) findViewById(R.id.event_location_subTitle_textView);
         eventComments = (TextView) findViewById(R.id.event_comments_textView);
         eventDateAndName.setTextSize(15);
-        eventDateAndName.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/ARCADE_N.TTF"));
+        eventDateAndName.setTypeface(Typeface.createFromAsset(getAssets(), FONT_NAME));
         eventTime.setTextSize(15);
-        eventTime.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/ARCADE_N.TTF"));
+        eventTime.setTypeface(Typeface.createFromAsset(getAssets(), FONT_NAME));
         eventLocationSubtitle.setTextSize(15);
-        eventLocationSubtitle.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/ARCADE_N.TTF"));
+        eventLocationSubtitle.setTypeface(Typeface.createFromAsset(getAssets(), FONT_NAME));
         eventComments.setTextSize(15);
-        eventComments.setTypeface(Typeface.createFromAsset(getAssets(), "fonts/ARCADE_N.TTF"));
+        eventComments.setTypeface(Typeface.createFromAsset(getAssets(), FONT_NAME));
         eventImageView = (ImageView) findViewById(R.id.events_imageView);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -72,17 +80,17 @@ public class EventDetailsActivity extends AppCompatActivity implements OnMapRead
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) {
-            calendarDataModel = (CalendarDataModel) bundle.getParcelable("EVENT_LIST");
+            calendarDataModel = (CalendarDataModel) bundle.getParcelable(EVENT_LIST);
             eventDateAndName.setText(calendarDataModel.getDateWithNoYear() + " " + calendarDataModel.getLocationTitle());
             eventTime.setText(calendarDataModel.getStartAndEndTime());
             eventLocationSubtitle.setText(calendarDataModel.getLocationSubtitle());
-            eventComments.setText(calendarDataModel.getComments() + "\n\n" + (calendarDataModel.getOnlineOrderingAvail() ? "You can also order on the app ahead of time!" : ""));
-            eventImageView.setTransitionName(bundle.getString("EVENT_TRANSITION_NAME"));
-            int drawable = bundle.getInt("EVENT_IMAGE");
+            eventComments.setText(calendarDataModel.getComments() + "\n\n" + (calendarDataModel.getOnlineOrderingAvail() ? getString(R.string.you_can_order_online) : ""));
+            eventImageView.setTransitionName(bundle.getString(EVENT_TRANSITION_NAME));
+            int drawable = bundle.getInt(EVENT_IMAGE);
 
             supportPostponeEnterTransition();
             Glide.with(this).load(R.drawable.background_transparent).apply(new RequestOptions()
-                    .dontAnimate().centerCrop().placeholder(drawable)).listener(new RequestListener<Drawable>() {
+                    .dontAnimate().diskCacheStrategy(DiskCacheStrategy.AUTOMATIC).centerCrop().placeholder(drawable)).listener(new RequestListener<Drawable>() {
                 @Override
                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                     supportStartPostponedEnterTransition();
@@ -99,12 +107,12 @@ public class EventDetailsActivity extends AppCompatActivity implements OnMapRead
 
         // Find the toolbar view inside the activity layout
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Sets the Toolbar to act as the ActionBar for this Activity window.
+        // Sets the Toolbar to act as the ActionBar for this Activity winEventdow.
         // Make sure the toolbar exists in the activity and is not null
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setTitle("Event Details");
+            getSupportActionBar().setTitle(getString(R.string.event_details));
         }
     }
 
@@ -113,7 +121,7 @@ public class EventDetailsActivity extends AppCompatActivity implements OnMapRead
         if(calendarDataModel != null) {
             LatLng location = getLocationFromAddress(calendarDataModel.getAddress());
             googleMap.addMarker(new MarkerOptions().position(location)
-                    .title("UNLV")
+                    .title(calendarDataModel.getLocationTitle())
 //                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
                     .icon(BitmapDescriptorFactory.fromResource(R.drawable.blitzbobamarker)));
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
@@ -168,5 +176,13 @@ public class EventDetailsActivity extends AppCompatActivity implements OnMapRead
         }
 
         return p1;
+    }
+
+    public static Intent createEventDetailsActivityIntent(Activity activity, String transitionName, int imageID, CalendarDataModel calendarDataModel) {
+        Intent intent = new Intent(activity, EventDetailsActivity.class);
+        intent.putExtra(EventDetailsActivity.EVENT_TRANSITION_NAME, transitionName);
+        intent.putExtra(EventDetailsActivity.EVENT_IMAGE, imageID);
+        intent.putExtra(EventDetailsActivity.EVENT_LIST, calendarDataModel);
+        return intent;
     }
 }
