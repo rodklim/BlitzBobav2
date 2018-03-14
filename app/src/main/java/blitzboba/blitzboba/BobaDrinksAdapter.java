@@ -19,6 +19,7 @@ import blitzboba.blitzbobav2.R;
  */
 
 class BobaDrinksAdapter extends RecyclerView.Adapter<BobaDrinksAdapter.BobaDrinksViewHolder> {
+    //TODO Externalize Adapters?
 
     public Context mContext;
     List<BobaDrinks> mBobaDrinks;
@@ -60,8 +61,8 @@ class BobaDrinksAdapter extends RecyclerView.Adapter<BobaDrinksAdapter.BobaDrink
         TextView name = holder.bobaDrinkName;
         name.setText(BobaDrinks.getName());
         holder.bobaDrinkName.setText(BobaDrinks.getName());
-                    holder.bobaDrinkName.setTypeface(typeface);
-                    holder.bobaDrinkName.setTextSize(12);
+        holder.bobaDrinkName.setTypeface(typeface);
+        holder.bobaDrinkName.setTextSize(12);
     }
 
     @Override

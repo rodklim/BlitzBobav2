@@ -19,30 +19,30 @@
             android:id="@+id/checkBox1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/tabsScrollColor"
             android:checked="true"
-            android:text="All" />
+            android:text="@string/all" />
 
         <CheckBox
             android:id="@+id/checkBox2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:text="Vegan" />
+            android:textColor="@color/tabsScrollColor"
+            android:text="@string/vegan" />
 
         <CheckBox
             android:id="@+id/checkBox3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:text="Specialty" />
+            android:textColor="@color/tabsScrollColor"
+            android:text="@string/specialty" />
 
         <CheckBox
             android:id="@+id/checkBox4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:text="Smoothie" />
+            android:textColor="@color/tabsScrollColor"
+            android:text="@string/smoothie" />
 
     </LinearLayout>
 

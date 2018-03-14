@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="blitzboba.blitzboba.MainActivity">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:id="@+id/action_back"
+        android:orderInCategory="0"
         android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="always" />
 </menu>
